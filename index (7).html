@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Insurance Simulation Lab — 260928PVL</title>
+<meta name="description" content="Insurance in International Trade · Simulation Lab with TT Circle · 28 September – 1 October 2026 · Port Virtual Lab.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PVL.ONE palette */
+  --pvl-blue:#1B3A8C; --pvl-cyan:#00A0E1; --pvl-amber:#F9B233;
+  --pvl-orange:#EE5B25; --pvl-red:#E63329; --pvl-green:#5BA829;
+
+  --ink:#10284F; --sea:var(--pvl-blue); --cold:var(--pvl-cyan);
+  --alarm:var(--pvl-orange); --gold:#C98A0E; --ok:#3C8C1E;
+  --paper:#FFFFFF; --wash:#EDF4FB; --line:#D4E3F2; --muted:#5B7290; --sink:#F6FAFD;
+  --sans:"Archivo",system-ui,-apple-system,sans-serif;
+  --serif:"Newsreader",Georgia,serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#E7EFF9; --sea:#7FB4F0; --cold:#3FBBEE; --alarm:#FF8F5C; --gold:#E8BC53; --ok:#78C94C;
+  --paper:#0A1524; --wash:#122339; --line:#22394F; --muted:#93A9C2; --sink:#0E1B2C;}}
+:root[data-theme="dark"]{
+  --ink:#E7EFF9; --sea:#7FB4F0; --cold:#3FBBEE; --alarm:#FF8F5C; --gold:#E8BC53; --ok:#78C94C;
+  --paper:#0A1524; --wash:#122339; --line:#22394F; --muted:#93A9C2; --sink:#0E1B2C;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.62}
+h1,h2,h3,h4{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:0}
+h2{font-size:clamp(23px,3vw,30px);margin:0 0 9px;color:var(--pvl-blue)}
+:root[data-theme="dark"] h2,html:not([data-theme="light"]) h2{color:var(--sea)}
+p{margin:0 0 12px;max-width:68ch}
+a{color:var(--pvl-blue)}
+:root[data-theme="dark"] a,html:not([data-theme="light"]) a{color:var(--sea)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;background:var(--wash);
+  padding:2px 6px;border-radius:4px;color:var(--pvl-blue)}
+:root[data-theme="dark"] code,html:not([data-theme="light"]) code{color:var(--cold)}
+.wrap{max-width:900px;margin:0 auto;padding:0 26px}
+section{padding-top:54px;scroll-margin-top:14px}
+.kicker{font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--pvl-orange);
+  letter-spacing:.07em;margin-bottom:9px}
+.lede{font-size:18px;color:var(--muted);max-width:62ch;margin-bottom:18px}
+.small{font-size:14.5px;color:var(--muted)}
+
+/* ---- hero: light, with the PVL colour bar ---- */
+header.hero{background:var(--paper);border-bottom:1px solid var(--line);position:relative}
+header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,
+    var(--pvl-blue) 0 25%, var(--pvl-cyan) 25% 50%,
+    var(--pvl-amber) 50% 75%, var(--pvl-orange) 75% 100%)}
+.hero .wrap{padding-top:calc(44px + env(safe-area-inset-top,0px));padding-bottom:34px}
+.hero .code{display:inline-block;font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.1em;
+  color:#fff;background:var(--pvl-cyan);padding:5px 12px;border-radius:4px;margin-bottom:16px}
+.hero h1{font-size:clamp(29px,4.9vw,47px);font-weight:800;color:var(--pvl-blue);max-width:20ch}
+:root[data-theme="dark"] .hero h1,html:not([data-theme="light"]) .hero h1{color:#fff}
+.hero .meta{font-family:var(--sans);font-size:14px;color:var(--muted);margin-top:14px;line-height:1.85}
+.hero .meta b{color:var(--ink);font-weight:600}
+.hero .swatch{display:flex;gap:5px;margin-top:22px}
+.hero .swatch i{width:34px;height:8px;border-radius:2px;display:block}
+
+/* ---- access cards ---- */
+.access{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px;margin:24px 0 6px}
+.acard{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px;background:var(--paper);
+  border-top:5px solid var(--c,var(--pvl-blue));
+  transition:transform .13s ease,box-shadow .13s ease,border-color .13s ease}
+.acard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(27,58,140,.13)}
+.acard .eyebrow{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.acard h3{margin:8px 0 7px;font-size:21px;color:var(--c,var(--pvl-blue))}
+.acard p{font-size:15px;margin:0 0 15px;color:var(--muted);flex:1}
+.acard .go{font-family:var(--sans);font-size:13.5px;font-weight:700;color:var(--c,var(--pvl-blue))}
+.acard .go::after{content:" →"}
+.acard.pending{opacity:.45;pointer-events:none}
+.acard.pending .go::after{content:" — link to come"}
+
+/* ---- tables ---- */
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14.5px;font-family:var(--sans)}
+.scroll{overflow-x:auto}
+th{background:var(--pvl-blue);color:#fff;text-align:left;padding:9px 11px;font-weight:600;font-size:12.5px}
+td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+tbody tr:nth-child(even){background:var(--sink)}
+td.t{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600;color:var(--pvl-blue)}
+:root[data-theme="dark"] td.t,html:not([data-theme="light"]) td.t{color:var(--cold)}
+tr.brk td{color:var(--muted);font-style:italic}
+tr.brk td.t{color:var(--muted)}
+
+/* ---- notes ---- */
+.note{border-left:4px solid var(--pvl-cyan);background:var(--wash);padding:14px 18px;margin:18px 0;
+  font-size:16px;border-radius:0 8px 8px 0}
+.note.warn{border-left-color:var(--pvl-orange)}
+.note.gold{border-left-color:var(--pvl-amber)}
+.note p:last-child{margin-bottom:0}
+.note b{font-family:var(--sans);font-size:14px}
+
+/* ---- teams ---- */
+.teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin:18px 0}
+.team{border:1px solid var(--line);border-radius:10px;padding:15px 16px;background:var(--sink);
+  border-left:6px solid var(--dot,var(--pvl-blue))}
+.team h4{font-family:var(--sans);font-size:15.5px;margin:0 0 3px}
+.team .mem{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.team .mer{font-family:var(--sans);font-size:11.5px;color:var(--gold);font-weight:700;margin-top:8px;letter-spacing:.03em}
+
+/* ---- people ---- */
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin:18px 0}
+.person{border-top:3px solid var(--pvl-cyan);padding-top:10px}
+.person:nth-child(2){border-top-color:var(--pvl-amber)}
+.person:nth-child(3){border-top-color:var(--pvl-orange)}
+.person:nth-child(4){border-top-color:var(--pvl-blue)}
+.person h4{font-family:var(--sans);font-size:15px;margin:0 0 2px}
+.person .role{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.person a{font-family:var(--sans);font-size:13.5px;text-decoration:none;font-weight:600}
+
+footer{border-top:1px solid var(--line);margin-top:64px;padding:28px 0;font-size:14px;color:var(--muted);
+  position:relative}
+footer::before{content:"";position:absolute;top:-1px;left:0;width:160px;height:3px;
+  background:linear-gradient(90deg,var(--pvl-blue) 0 25%,var(--pvl-cyan) 25% 50%,
+    var(--pvl-amber) 50% 75%,var(--pvl-orange) 75% 100%)}
+.themebtn{position:fixed;right:15px;bottom:calc(15px + env(safe-area-inset-bottom,0px));z-index:40;
+  font-family:var(--sans);font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink);border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 3px 14px rgba(27,58,140,.16)}
+:focus-visible{outline:2px solid var(--pvl-orange);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:640px){.wrap{padding:0 18px}section{padding-top:42px}}
+@media print{.themebtn{display:none}body{font-size:11pt}.acard,.note{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="code">COURSE 260928PVL</div>
+    <h1>Insurance in International Trade</h1>
+    <div class="meta">
+      <b>Simulation Lab with TT Circle</b><br>
+      28 September – 1 October 2026 · 15:00–19:00 CEST · online, in English<br>
+      Escola Europea – Intermodal Transport · Port Virtual Lab
+    </div>
+    <div class="swatch" aria-hidden="true">
+      <i style="background:#1B3A8C"></i><i style="background:#00A0E1"></i><i style="background:#F9B233"></i><i style="background:#EE5B25"></i>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="access" style="padding-top:32px">
+  <div class="kicker">START HERE</div>
+  <h2>Your four access points</h2>
+  <p class="lede">Read the instructions in PVL GAME. Do the work in TT Circle. Slides and recordings live in Classroom. Sessions run on Meet.</p>
+
+  <div class="access">
+    <a class="acard" id="c-game" href="#" target="_blank" rel="noopener" style="--c:#1B3A8C">
+      <div class="eyebrow">INSTRUCTIONS · DEADLINES · UPLOADS</div>
+      <h3>PVL GAME</h3>
+      <p>Where the course lives. Every task, every deadline, every upload and quiz, plus your team's points and MERCATOR balance. Sign in with the address you registered with.</p>
+      <div class="go">Open PVL GAME</div>
+    </a>
+
+    <a class="acard" href="https://portvirtuallab.github.io/ttcircle-insurance/index.html" target="_blank" rel="noopener" style="--c:#EE5B25">
+      <div class="eyebrow">YOUR INSURANCE COMPANY</div>
+      <h3>TT Circle</h3>
+      <p>The simulator, with its five stages: risk assessment, quotation, payment, cargo report and claims. Start at the home page and choose the stage the task asks for.</p>
+      <div class="go">Open TT Circle</div>
+    </a>
+
+    <a class="acard" href="https://classroom.google.com/c/MTYyNzE0NDY5NDcw?cjc=jtzqqyeg" target="_blank" rel="noopener" style="--c:#F9B233">
+      <div class="eyebrow">SLIDES · RECORDINGS · READING</div>
+      <h3>Google Classroom</h3>
+      <p>Lecture slides go up after each session, together with the recordings and the pre-course reading.</p>
+      <div class="go">Open Classroom</div>
+    </a>
+
+    <a class="acard" href="https://meet.google.com/gtn-gxzq-rji" target="_blank" rel="noopener" style="--c:#00A0E1">
+      <div class="eyebrow">LIVE SESSIONS · 15:00 CEST</div>
+      <h3>Google Meet</h3>
+      <p>The same link for all four afternoons. Camera and microphone on — you will be presenting on Thursday.</p>
+      <div class="go">Join the session</div>
+    </a>
+  </div>
+
+  <div class="note warn"><p><b>Before you open PVL GAME for the first time:</b> check your inbox. You have received an invitation email at the address you registered with, and you must confirm it before your account works. If you cannot find it, look in spam — and if it is not there either, write to us today rather than on Monday at five past three.</p></div>
+
+  <div class="note"><p><b>Use the same computer and the same browser for all four days.</b> TT Circle keeps your case file in that browser. If you change machine, switch browser or clear your browsing data, your policy number will not carry into the claim form on Thursday.</p></div>
+</section>
+
+<section id="schedule">
+  <div class="kicker">WHEN</div>
+  <h2>The four afternoons</h2>
+  <p class="lede">15:00 to 19:00 Central European Summer Time, every day, with a thirty-minute break. Times are Barcelona time.</p>
+
+  <h3 style="font-size:16px;margin:22px 0 4px">Monday 28 September — Fundamentals &amp; Onboarding</h3>
+  <div class="scroll"><table><tbody>
+    <tr><td class="t" style="width:22%">15:00 – 15:30</td><td>Opening, course goals and working method</td></tr>
+    <tr><td class="t">15:30 – 16:30</td><td>Lecture — Risk and the role of insurance</td></tr>
+    <tr><td class="t">16:30 – 16:45</td><td>TT Circle onboarding</td></tr>
+    <tr class="brk"><td class="t">16:45 – 17:15</td><td>Break</td></tr>
+    <tr><td class="t">17:15 – 17:45</td><td>Teamwork — risk matrix</td></tr>
+    <tr><td class="t">17:45 – 18:30</td><td>Lecture — Incoterms® 2020 and insurance obligations</td></tr>
+    <tr><td class="t">18:30 – 19:00</td><td>Dossier brief</td></tr>
+  </tbody></table></div>
+
+  <h3 style="font-size:16px;margin:22px 0 4px">Tuesday 29 September — Coverages &amp; Perishables Case</h3>
+  <div class="scroll"><table><tbody>
+    <tr><td class="t" style="width:22%">15:00 – 16:00</td><td>Lecture — ICC A/B/C: scope, exclusions and extensions</td></tr>
+    <tr><td class="t">16:00 – 16:30</td><td>Lecture — Premium and sum insured</td></tr>
+    <tr class="brk"><td class="t">16:30 – 17:00</td><td>Break</td></tr>
+    <tr><td class="t">17:00 – 17:30</td><td>Teamwork — cover, sum insured and premium</td></tr>
+    <tr><td class="t">17:30 – 18:15</td><td>Teamwork — payment process and insurance evidence</td></tr>
+    <tr><td class="t">18:15 – 19:00</td><td>Debrief and micro-quiz</td></tr>
+  </tbody></table></div>
+
+  <h3 style="font-size:16px;margin:22px 0 4px">Wednesday 30 September — Multimodal, Documents &amp; Liability</h3>
+  <div class="scroll"><table><tbody>
+    <tr><td class="t" style="width:22%">15:00 – 15:45</td><td>Lecture — Multimodal, documentation and general average</td></tr>
+    <tr><td class="t">15:45 – 16:30</td><td>Lecture — Claims timelines and sustainability</td></tr>
+    <tr class="brk"><td class="t">16:30 – 17:00</td><td>Break</td></tr>
+    <tr><td class="t">17:00 – 18:15</td><td>Case — cargo file, custody and route decision</td></tr>
+    <tr><td class="t">18:15 – 19:00</td><td>Teamwork — cargo management report</td></tr>
+  </tbody></table></div>
+
+  <h3 style="font-size:16px;margin:22px 0 4px">Thursday 1 October — Claims, Strategy &amp; Practical Exam</h3>
+  <div class="scroll"><table><tbody>
+    <tr><td class="t" style="width:22%">15:00 – 15:30</td><td>Lecture — Claims procedure, evidence and subrogation</td></tr>
+    <tr><td class="t">15:30 – 16:30</td><td>Teamwork — claim simulation and indemnity</td></tr>
+    <tr class="brk"><td class="t">16:30 – 17:00</td><td>Break</td></tr>
+    <tr><td class="t">17:00 – 17:30</td><td>Practical exam</td></tr>
+    <tr><td class="t">17:30 – 18:30</td><td>Teamwork — dossier and delivery</td></tr>
+    <tr><td class="t">18:30 – 19:00</td><td>Closing ceremony</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="teams">
+  <div class="kicker">YOUR DESK</div>
+  <h2>The teams</h2>
+  <p class="lede">You work in pairs. Each team is an insurance company, and each one is dealt a different Incoterm and a different complication on Monday afternoon.</p>
+  <div class="teams">
+    <div class="team" style="--dot:#D99A2B"><h4>Ambar</h4><div class="mem">2 members</div><div class="mer">60 MERCATOR</div></div>
+    <div class="team" style="--dot:#2FA8DE"><h4>Azure</h4><div class="mem">3 members</div><div class="mer">60 MERCATOR</div></div>
+    <div class="team" style="--dot:#C0392B"><h4>Cherry</h4><div class="mem">2 members</div><div class="mer">60 MERCATOR</div></div>
+    <div class="team" style="--dot:#7D2E3F"><h4>Garnet</h4><div class="mem">reserve</div><div class="mer">60 MERCATOR</div></div>
+    <div class="team" style="--dot:#C9A227"><h4>Honey</h4><div class="mem">reserve</div><div class="mer">60 MERCATOR</div></div>
+    <div class="team" style="--dot:#6FA82B"><h4>Lime</h4><div class="mem">1 member</div><div class="mer">60 MERCATOR</div></div>
+  </div>
+  <p class="small">Your team's shared folder, with the workbooks and the dossier template, is linked from your team page in PVL GAME.</p>
+</section>
+
+<section id="shipment">
+  <div class="kicker">THE FILE ON YOUR DESK</div>
+  <h2>One shipment, four afternoons</h2>
+  <p class="lede">Fruits del Segrià SL in Lleida is shipping fresh cherries to Gulf Fresh Trading FZE in Dubai. Nobody has insured it yet. That is why they came to you.</p>
+  <div class="scroll"><table><tbody>
+    <tr><td style="width:36%"><b>Cargo</b></td><td>Fresh cherries · 1 × 40' reefer · 20 pallets · 21,600 kg gross</td></tr>
+    <tr><td><b>Temperature</b></td><td>Set point +2 °C · alarms at +1 °C and +4 °C</td></tr>
+    <tr><td><b>Route</b></td><td>Barcelona → transhipment at Salalah → Jebel Ali</td></tr>
+    <tr><td><b>Transit</b></td><td>25 days door to door</td></tr>
+    <tr><td><b>Invoice value / freight</b></td><td>72,000 EUR / 3,800 EUR</td></tr>
+  </tbody></table></div>
+  <p>Over the four afternoons you will assess the risk, choose the cover, calculate the premium, activate the policy, keep the cargo file up to date — and on Thursday something will go wrong, and you will settle the claim.</p>
+  <div class="note gold"><p><b>Whatever you decide on Tuesday, you live with on Thursday.</b> The claim is settled under the cover you chose two days earlier. Nobody can hand you the right answer halfway through, because the right answer depends on what you bought.</p></div>
+</section>
+
+<section id="assessment">
+  <div class="kicker">HOW YOU ARE ASSESSED</div>
+  <h2>Dossier 50% · exam 40% · participation 10%</h2>
+  <p>Every working block ends with one numbered piece of evidence. Seven in total, from the risk matrix to the settled claim, and they become the appendix of your team dossier. You do not write the dossier on Thursday evening — you assemble it, from work you have already done.</p>
+  <p>The PVL GAME leaderboard is a separate thing: 1,000 points across nineteen challenges. It rewards pace and completeness, and it does not decide your grade.</p>
+</section>
+
+<section id="contact">
+  <div class="kicker">WHO TO ASK</div>
+  <h2>Course team</h2>
+  <div class="people">
+    <div class="person"><h4>Orlando Reveco</h4><div class="role">Digital Product Manager · platforms and access</div><a id="m-orlando" href="#">Email</a></div>
+    <div class="person"><h4>Marta Miquel</h4><div class="role">Deputy Director · course coordination</div><a id="m-marta" href="#">Email</a></div>
+    <div class="person"><h4>Course mailbox</h4><div class="role">Anything else</div><a href="mailto:info@escolaeuropea.eu">info@escolaeuropea.eu</a></div>
+    <div class="person"><h4>Escola Europea</h4><div class="role">Moll de Barcelona s/n, Terminal Drassanes, 08039 Barcelona</div><a href="tel:+34932986070">+34 93 298 6070</a></div>
+  </div>
+  <div class="note"><p><b>If something does not work, write before the session rather than during it.</b> A platform problem at 17:00 on a Tuesday costs your team a whole block. The same problem on Sunday costs nothing.</p></div>
+</section>
+
+<section id="links">
+  <div class="kicker">EVERYTHING IN ONE PLACE</div>
+  <h2>Links</h2>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:36%">What</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td><b>PVL GAME — event 260928PVL</b></td><td><a id="l-game" href="#" target="_blank" rel="noopener">pvl-game.ctnaval.com</a></td></tr>
+      <tr><td><b>TT Circle simulator</b></td><td><a href="https://portvirtuallab.github.io/ttcircle-insurance/index.html" target="_blank" rel="noopener">portvirtuallab.github.io/ttcircle-insurance</a></td></tr>
+      <tr><td><b>TT Circle field guide</b></td><td><a href="https://portvirtuallab.github.io/ttcircle-insurance/glossary.html" target="_blank" rel="noopener">Policy holder, beneficiary, ISRCC, IWC</a></td></tr>
+      <tr><td><b>Google Classroom</b></td><td><a href="https://classroom.google.com/c/MTYyNzE0NDY5NDcw?cjc=jtzqqyeg" target="_blank" rel="noopener">Slides and recordings</a> · code <code>jtzqqyeg</code></td></tr>
+      <tr><td><b>Google Meet</b></td><td><a href="https://meet.google.com/gtn-gxzq-rji" target="_blank" rel="noopener">gtn-gxzq-rji</a></td></tr>
+      <tr><td><b>Programme (PDF)</b></td><td><a id="l-prog" href="#" target="_blank" rel="noopener">Download the updated programme</a></td></tr>
+      <tr><td><b>Port Virtual Lab</b></td><td><a href="https://www.pvl.one" target="_blank" rel="noopener">pvl.one</a></td></tr>
+      <tr><td><b>Escola Europea</b></td><td><a href="https://www.escolaeuropea.eu" target="_blank" rel="noopener">escolaeuropea.eu</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    <p><b>Insurance Simulation Lab with TT Circle</b> · ID 260928PVL · 28 September – 1 October 2026 · 15:00–19:00 CEST<br>
+    Escola Europea – Intermodal Transport · Port Virtual Lab · ISO 9001:2015 certified</p>
+    <p class="small">Training simulation. All figures, rates, clauses and incidents are illustrative and do not constitute an insurance offer.</p>
+  </div>
+</footer>
+</div>
+
+<button class="themebtn" id="themebtn">Dark</button>
+
+<script>
+/* ============================================================
+   EDIT ONLY THIS BLOCK.
+   Leave a value as "" and that card or link stays greyed out.
+   ============================================================ */
+const LINKS = {
+  pvlGame:   "https://pvl-game.ctnaval.com/login",   // PVL GAME — login
+  programme: "",                          // updated programme PDF
+  mailOrlando: "",                        // e.g. orlando.reveco@escolaeuropea.eu
+  mailMarta:   ""                         // e.g. marta.miquel@escolaeuropea.eu
+};
+/* ========================================================== */
+
+function wire(id, url, isMail){
+  const el = document.getElementById(id); if(!el) return;
+  if(url){ el.href = isMail ? "mailto:"+url : url; el.closest(".acard")?.classList.remove("pending"); }
+  else { el.removeAttribute("target"); el.closest(".acard")?.classList.add("pending"); el.style.opacity=".5"; }
+}
+wire("c-game", LINKS.pvlGame);
+wire("l-game", LINKS.pvlGame);
+wire("l-prog", LINKS.programme);
+wire("m-orlando", LINKS.mailOrlando, true);
+wire("m-marta", LINKS.mailMarta, true);
+
+const btn=document.getElementById('themebtn');
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);
+  btn.textContent=t==='dark'?'Light':'Dark';
+  try{localStorage.setItem('pvl-landing-theme',t)}catch(e){}}
+let saved=null;try{saved=localStorage.getItem('pvl-landing-theme')}catch(e){}
+setTheme(saved||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+btn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+</script>
+</body>
+</html>
