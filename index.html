@@ -23,6 +23,19 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
   font-size:15.5px;line-height:1.58;-webkit-font-smoothing:antialiased;
   letter-spacing:-.008em;}
+h1,h2,h3{font-family:var(--sans);font-weight:700;letter-spacing:-.035em;line-height:1.1;margin:0}
+h2{font-size:clamp(20px,2.6vw,25px);color:var(--blue);margin:0 0 4px}
+p{margin:0 0 11px;max-width:64ch}
+a{color:var(--blue)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;background:var(--wash);padding:2px 6px;border-radius:5px;color:var(--blue)}
+.wrap{max-width:900px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+section{padding-top:44px;scroll-margin-top:16px}
+.kicker{position:relative;font-family:var(--sans);font-size:10.5px;font-weight:700;color:var(--orange);
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px;padding-left:26px;display:inline-block}
+.kicker::before{content:"";position:absolute;left:0;top:50%;width:18px;height:2px;border-radius:1px;
+  background:var(--orange);opacity:.55}
+h2 + p, h2 + .small{margin-top:6px}
+.small{font-size:14px;color:var(--muted)}
 header.hero{background:var(--paper);border-bottom:1px solid var(--line);position:relative}
 header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;
   background:linear-gradient(90deg,#1B3A8C 0 25%,#00A0E1 25% 50%,#F9B233 50% 75%,#EE5B25 75% 100%)}
@@ -178,7 +191,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0;font-size
   <p class="msg" id="msg"></p>
   <div class="cardwrap" id="cardwrap"></div>
 
-  <p class="small" style="margin-top:18px">Do not know your user name? It is in the email you received with your registration. Your email address also works.</p>
+  <p class="small" style="margin-top:18px">Your PVL GAME user is your team mailbox address, and the password shown is the default one &mdash; change it once you are in. Do not know your user name? It is in the email you received with your registration. Your email address also works.</p>
 </section>
 
 <section id="week">
@@ -323,7 +336,7 @@ const CONFIG = {
   participantsCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4eIzQjWHyoPekluBOik-DCx_0NdW4LDqQF_bwfvM-6VD7oLhr28F3LKhg_6V-FhV_a23AXugDmWeB/pub?gid=0&single=true&output=csv",
   teamsCSV: "",
   // These "user game" values ignore the unlock time. For testing.
-  bypass: ["iclemente"],
+  bypass: ["vmunapaz"],
   // Credentials stay hidden until this moment (Barcelona time)
   unlockAt: "2026-09-28T15:00:00+02:00",
   mail: {
@@ -395,16 +408,19 @@ function show(person, team){
       '<div class="top"><div class="t">INSURANCE SIMULATION LAB &middot; 260928PVL</div>'+
         '<div class="n">'+pick(person,F.name)+'</div>'+
         '<div class="tm">'+pick(person,F.team)+'</div></div>'+
-      '<div class="grp"><h4>PVL GAME &mdash; personal</h4>'+
+      '<div class="grp"><h4>PVL GAME</h4>'+
         row("user", pick(person,F.user))+
         row("password", pick(person,F.pass))+
         row("pvl code", pick(person,F.code))+
       '</div>'+
-      ((pick(t,F.euser)||pick(t,F.tmail)) ? '<div class="grp"><h4>Team accounts</h4>'+
-        row("ERP user", pick(t,F.euser))+
-        row("ERP password", pick(t,F.epass))+
-        row("team mail", pick(t,F.tmail))+
-        row("mail password", pick(t,F.tpass))+
+      (pick(t,F.tmail) ? '<div class="grp"><h4>Team mailbox &mdash; also your PVL GAME user</h4>'+
+        row("address", pick(t,F.tmail))+
+        row("password", pick(t,F.tpass))+
+        '<a class="dl" style="margin-top:9px" href="https://srv2.playforwarding.com/login_up.php" target="_blank" rel="noopener">Open the webmail &#8599;</a>'+
+      '</div>' : "")+
+      (pick(t,F.euser) ? '<div class="grp"><h4>ERP access</h4>'+
+        row("user", pick(t,F.euser))+
+        row("password", pick(t,F.epass))+
       '</div>' : "")+
       '<div class="act"><button id="dl">Download</button><button id="cp">Copy all</button></div>'+
     '</div>';
@@ -422,10 +438,10 @@ function downloadCard(person, t, dot){
   L.push(["PVL GAME user", pick(person,F.user)]);
   L.push(["PVL GAME password", pick(person,F.pass)]);
   if(pick(person,F.code)) L.push(["PVL code", pick(person,F.code)]);
+  if(pick(t,F.tmail)) L.push(["Team mailbox", pick(t,F.tmail)]);
+  if(pick(t,F.tpass)) L.push(["Mailbox password", pick(t,F.tpass)]);
   if(pick(t,F.euser)) L.push(["ERP user", pick(t,F.euser)]);
   if(pick(t,F.epass)) L.push(["ERP password", pick(t,F.epass)]);
-  if(pick(t,F.tmail)) L.push(["Team mail", pick(t,F.tmail)]);
-  if(pick(t,F.tpass)) L.push(["Mail password", pick(t,F.tpass)]);
 
   var H = 250 + L.length*46;
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="'+H+'" viewBox="0 0 900 '+H+'">'+
