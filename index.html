@@ -7,12 +7,12 @@
 <meta name="description" content="Insurance in International Trade · Simulation Lab with TT Circle · 28 September – 1 October 2026 · Port Virtual Lab.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#1B3A8C; --cyan:#00A0E1; --amber:#F9B233; --orange:#EE5B25; --green:#3C8C1E;
   --ink:#10284F; --paper:#FFFFFF; --wash:#EDF4FB; --line:#D4E3F2; --muted:#5B7290; --sink:#F6FAFD;
-  --sans:"Space Grotesk",system-ui,-apple-system,sans-serif; --serif:"Inter",system-ui,-apple-system,sans-serif;
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif; --serif:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 :root[data-theme="dark"]{
@@ -22,45 +22,52 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
   font-size:15.5px;line-height:1.58;-webkit-font-smoothing:antialiased;
-  font-feature-settings:"cv05","ss01";}
+  letter-spacing:-.008em;}
 header.hero{background:var(--paper);border-bottom:1px solid var(--line);position:relative}
 header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;
   background:linear-gradient(90deg,#1B3A8C 0 25%,#00A0E1 25% 50%,#F9B233 50% 75%,#EE5B25 75% 100%)}
-.hero .wrap{padding-top:calc(30px + env(safe-area-inset-top,0px));padding-bottom:22px}
+.hero .wrap{padding-top:calc(44px + env(safe-area-inset-top,0px));padding-bottom:34px}
 .hero .code{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;
   color:#fff;background:var(--cyan);padding:5px 11px;border-radius:4px;margin-bottom:14px}
-.hero h1{font-size:clamp(25px,4.4vw,36px);font-weight:700;color:var(--blue);max-width:18ch;letter-spacing:-.04em}
+.hero h1{font-size:clamp(26px,4.6vw,38px);font-weight:800;color:var(--blue);max-width:18ch;letter-spacing:-.04em}
 :root[data-theme="dark"] .hero h1{color:#fff}
 .hero .meta{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:11px;line-height:1.8}
-.btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:10px;margin:20px 0 2px}
-.btn{position:relative;display:flex;flex-direction:column;gap:2px;text-decoration:none;color:inherit;
-  border:1px solid var(--line);border-radius:13px;padding:14px 15px 13px;overflow:hidden;
-  background:var(--paper);
-  transition:transform .16s cubic-bezier(.2,.7,.3,1),box-shadow .16s,border-color .16s}
-.btn::before{content:"";position:absolute;inset:0;background:var(--c,var(--blue));opacity:.05;
-  transition:opacity .16s}
-.btn::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c,var(--blue))}
+.btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:11px;margin:22px 0 2px}
+.btn{position:relative;display:flex;align-items:flex-start;gap:12px;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:20px;padding:14px 16px;overflow:hidden;background:var(--paper);
+  transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--c,var(--blue));opacity:.04;transition:opacity .18s}
 .btn:hover{transform:translateY(-3px);border-color:var(--c,var(--blue));
-  box-shadow:0 12px 28px -8px color-mix(in srgb, var(--c,#1B3A8C) 40%, transparent)}
-.btn:hover::before{opacity:.1}
-.btn .ic{position:relative;font-family:var(--sans);font-size:9.5px;font-weight:600;letter-spacing:.12em;
-  color:var(--c,var(--blue));opacity:.8;margin-bottom:4px}
-.btn b{position:relative;font-family:var(--sans);font-size:15.5px;font-weight:600;color:var(--ink);
-  letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
-.btn b em{font-style:normal;color:var(--c,var(--blue));transition:transform .16s cubic-bezier(.2,.7,.3,1)}
-.btn:hover b em{transform:translateX(5px)}
-.btn span{position:relative;font-size:12.5px;color:var(--muted);line-height:1.45}
+  box-shadow:0 14px 30px -12px color-mix(in srgb, var(--c,#1B3A8C) 45%, transparent)}
+.btn:hover::before{opacity:.09}
+.btn .dot{position:relative;flex:0 0 38px;width:38px;height:38px;border-radius:50%;
+  background:var(--c,var(--blue));color:#fff;display:grid;place-items:center;
+  font-family:var(--sans);font-size:17px;font-weight:700;letter-spacing:-.02em;
+  transition:transform .18s cubic-bezier(.2,.7,.3,1)}
+.btn:hover .dot{transform:scale(1.08) rotate(-6deg)}
+.btn .tx{position:relative;min-width:0}
+.btn .ic{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.13em;
+  color:var(--c,var(--blue));opacity:.8;text-transform:uppercase}
+.btn b{display:block;font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);
+  letter-spacing:-.02em;margin:2px 0 1px}
+.btn span{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}
 .check{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px;margin:14px 0}
-.check div{border-left:3px solid var(--cyan);background:var(--wash);padding:11px 13px;border-radius:0 10px 10px 0}
+.check div{border-left:3px solid var(--cyan);background:var(--wash);padding:13px 15px;border-radius:0 12px 12px 0;
+  transition:transform .14s,box-shadow .14s}
+.check div:hover{transform:translateX(2px);box-shadow:0 6px 18px -10px rgba(27,58,140,.5)}
 .check b{font-family:var(--sans);font-size:14px;display:block;margin-bottom:3px}
 .check p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
-.lookup{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
-.lookup input{flex:1 1 200px;font-family:var(--sans);font-size:15px;padding:11px 14px;
-  border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink)}
-.lookup input:focus{outline:2px solid var(--cyan);outline-offset:1px;border-color:var(--cyan)}
-.lookup button{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:11px 20px;
+.dl{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:13.5px;font-weight:600;
+  text-decoration:none;color:var(--blue);border:1px solid var(--line);border-radius:10px;
+  padding:9px 15px;background:var(--sink);transition:transform .14s,box-shadow .14s,border-color .14s}
+.dl:hover{transform:translateY(-2px);border-color:var(--blue);box-shadow:0 8px 20px -10px rgba(27,58,140,.7)}
+.lookup{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 6px}
+.lookup input{flex:1 1 210px;font-family:var(--sans);font-size:15px;padding:12px 15px;
+  border:1px solid var(--line);border-radius:12px;background:var(--sink);color:var(--ink);transition:background .14s,border-color .14s}
+.lookup input:focus{outline:none;background:var(--paper);border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,160,225,.16)}
+.lookup button{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;
   border:0;border-radius:11px;background:var(--blue);color:#fff;cursor:pointer;transition:transform .12s,opacity .12s}
-.lookup button:hover{transform:translateY(-2px);opacity:.92}
+.lookup button:hover{transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(27,58,140,.8)}
 .msg{font-family:var(--sans);font-size:13.5px;color:var(--orange);margin:2px 0 0}
 .cardwrap{margin:16px 0 0}
 .cred{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--paper);
@@ -92,20 +99,25 @@ th{background:var(--blue);color:#fff;text-align:left;padding:8px 10px;font-weigh
 td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:nth-child(even){background:var(--sink)}
 td.d{font-weight:700;color:var(--blue);white-space:nowrap}
-details{border-bottom:1px solid var(--line);padding:9px 0}
+details{border-bottom:1px solid var(--line);padding:2px 0}
+details summary{padding:12px 4px 12px 0;border-radius:8px;transition:color .14s}
+details summary:hover{color:var(--blue)}
+details[open] summary{color:var(--blue)}
+details > *:not(summary){animation:reveal .22s ease both}
+@keyframes reveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 summary{font-family:var(--sans);font-size:14.5px;font-weight:600;cursor:pointer;list-style:none;
   display:flex;justify-content:space-between;gap:12px;color:var(--ink)}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-family:var(--sans);color:var(--orange);font-weight:700;font-size:19px;line-height:1}
-details[open] summary::after{content:"\2013"}
+summary::after{content:"+";font-family:var(--sans);color:var(--orange);font-weight:600;font-size:20px;line-height:1;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+details[open] summary::after{content:"+";transform:rotate(135deg)}
 details p{margin:8px 0 2px;font-size:14px;color:var(--muted);line-height:1.55}
 .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:14px 0}
 .person{border-top:3px solid var(--c,var(--cyan));padding-top:9px}
 .person b{font-family:var(--sans);font-size:15px;display:block}
 .person span{font-family:var(--sans);font-size:12.5px;color:var(--muted);display:block;margin:2px 0 5px}
 .person a{font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none}
-.subhead{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em;margin:24px 0 2px}
-footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size:14px;color:var(--muted)}
+.subhead{font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin:26px 0 0}
+footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0;font-size:14px;color:var(--muted)}
 .themebtn{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
   font-family:var(--sans);font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--paper);
   color:var(--ink);border-radius:20px;padding:7px 13px;cursor:pointer;box-shadow:0 3px 12px rgba(27,58,140,.16)}
@@ -129,12 +141,13 @@ footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size
 
 <section id="go" style="padding-top:26px">
   <div class="btns">
-    <a class="btn" href="#prepare" style="--c:#EE5B25"><div class="ic">START HERE</div><b>Before you start <em>&rarr;</em></b><span>Five things to do now</span></a>
-    <a class="btn" href="#team" style="--c:#1B3A8C"><div class="ic">YOUR DESK</div><b>Your team <em>&rarr;</em></b><span>Credentials and folder</span></a>
-    <a class="btn" href="https://pvl-game.ctnaval.com/login" target="_blank" rel="noopener" style="--c:#00A0E1"><div class="ic">PLATFORM</div><b>PVL GAME <em>&rarr;</em></b><span>Tasks, deadlines, uploads</span></a>
-    <a class="btn" href="https://portvirtuallab.github.io/ttcircle-insurance/index.html" target="_blank" rel="noopener" style="--c:#F9B233"><div class="ic">SIMULATOR</div><b>TT Circle <em>&rarr;</em></b><span>Where you do the work</span></a>
-    <a class="btn" href="https://meet.google.com/gtn-gxzq-rji" target="_blank" rel="noopener" style="--c:#3C8C1E"><div class="ic">LIVE &middot; 15:00 CEST</div><b>Join the session <em>&rarr;</em></b><span>Same link every day</span></a>
-    <a class="btn" href="https://classroom.google.com/c/MTYyNzE0NDY5NDcw?cjc=jtzqqyeg" target="_blank" rel="noopener" style="--c:#5B7290"><div class="ic">MATERIALS</div><b>Classroom <em>&rarr;</em></b><span>Slides and recordings</span></a>
+    <a class="btn" href="#prepare" style="--c:#EE5B25"><div class="dot">1</div><div class="tx"><div class="ic">Start here</div><b>Before you start</b><span>Three things to do now</span></div></a>
+    <a class="btn" href="#team" style="--c:#1B3A8C"><div class="dot">&#9679;</div><div class="tx"><div class="ic">Your desk</div><b>Your credentials</b><span>Personal and team access</span></div></a>
+    <a class="btn" href="https://pvl-game.ctnaval.com/login" target="_blank" rel="noopener" style="--c:#00A0E1"><div class="dot">&rarr;</div><div class="tx"><div class="ic">Platform</div><b>PVL GAME</b><span>Tasks, deadlines, uploads</span></div></a>
+    <a class="btn" href="https://sites.google.com/playpcs.com/playttcircle/home" target="_blank" rel="noopener" style="--c:#F9B233"><div class="dot">&rarr;</div><div class="tx"><div class="ic">Simulator</div><b>Play TT Circle</b><span>Where you do the work</span></div></a>
+    <a class="btn" href="https://meet.google.com/gtn-gxzq-rji" target="_blank" rel="noopener" style="--c:#3C8C1E"><div class="dot">&#9679;</div><div class="tx"><div class="ic">Live &middot; 15:00 CEST</div><b>Join the session</b><span>Same link every day</span></div></a>
+    <a class="btn" href="https://classroom.google.com/c/MTYyNzE0NDY5NDcw?cjc=jtzqqyeg" target="_blank" rel="noopener" style="--c:#5B7290"><div class="dot">&rarr;</div><div class="tx"><div class="ic">Materials</div><b>Classroom</b><span>Slides and recordings</span></div></a>
+    <a class="btn" href="https://www.pvl.one" target="_blank" rel="noopener" style="--c:#7A4FB0"><div class="dot">&rarr;</div><div class="tx"><div class="ic">The lab</div><b>PVL.ONE</b><span>The Logistics Living Lab</span></div></a>
   </div>
 </section>
 
@@ -159,7 +172,7 @@ footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size
   <p class="small">Enter your PVL GAME user name to see your own access details and your team&rsquo;s. They unlock on Monday at 15:00 CEST.</p>
 
   <div class="lookup">
-    <input id="pvlcode" type="text" placeholder="Your PVL GAME user, e.g. iclemente" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <input id="pvlcode" type="text" placeholder="your PVL GAME user name" autocomplete="off" autocapitalize="off" spellcheck="false">
     <button id="lookupBtn">Show my credentials</button>
   </div>
   <p class="msg" id="msg"></p>
@@ -172,6 +185,7 @@ footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size
   <div class="kicker">THE WEEK</div>
   <h2>Programme, day by day</h2>
   <p class="small">Times are Barcelona time. The file of the day is in the Resources tab of PVL GAME &mdash; nothing is needed before Monday.</p>
+  <p><a class="dl" href="https://drive.google.com/file/d/1JNfEdBFKXCITxEw_NHGy6yvXt5uG7F1_/view?usp=sharing" target="_blank" rel="noopener">Download the full programme (PDF) &#8599;</a></p>
 
   <details><summary>Monday 28 September &mdash; Fundamentals &amp; onboarding</summary>
     <div class="scroll"><table><tbody>
@@ -244,6 +258,10 @@ footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size
   <details><summary>How am I assessed?</summary>
   <p>Team dossier 50%, individual exam 40%, participation 10%. The dossier&rsquo;s conclusions alone carry 40% of the dossier mark. Your points do not depend on whether your claim pays &mdash; they depend on the quality of your decisions and on doing the work.</p></details>
 
+  <details><summary>What do I need to receive the certificate?</summary>
+  <p>Three things. <b>Attendance:</b> at least three of the four afternoons, which is 75% of the course. <b>Assessment:</b> an overall mark of 60% or above across the dossier, the exam and participation. <b>Delivery:</b> your team&rsquo;s dossier submitted with its seven pieces of evidence.</p>
+  <p>Miss more than one afternoon and we cannot certify the hours, whatever your marks look like. If you know in advance that you will miss a session, tell us before it happens rather than after.</p></details>
+
   <details><summary>What if my claim does not pay anything on Thursday?</summary>
   <p>That is a result, not a failure, and it costs you no points. Write the zero, name the clause that causes it, and say what you would have bought on Tuesday and what it would have cost. That paragraph scores higher than a settlement nobody explained.</p></details>
 
@@ -272,14 +290,14 @@ footer{border-top:1px solid var(--line);margin-top:52px;padding:24px 0;font-size
     <div class="person" style="--c:#7A4FB0"><b>Alejandro Belinch&oacute;n Carreras</b><span>Lecturer</span><a href="https://www.linkedin.com/in/alejandro-belinchon/" target="_blank" rel="noopener">LinkedIn &#8599;</a></div>
   </div>
 
-  <p class="small" style="margin-top:20px">Escola Europea &ndash; Intermodal Transport &middot; <a href="mailto:info@escolaeuropea.eu">info@escolaeuropea.eu</a> &middot; <a href="tel:+34932986070">+34 93 298 6070</a></p>
+  <p class="small" style="margin-top:20px">Escola Europea &ndash; Intermodal Transport &middot; Course mailbox <a href="mailto:coursemanager@playpcs.com">coursemanager@playpcs.com</a> &middot; <a href="tel:+34932986070">+34 93 298 6070</a></p>
 </section>
 
 <section id="about" style="padding-top:44px">
   <div class="kicker">ABOUT THIS PAGE</div>
   <h2>Built for this course</h2>
   <p>This page was put together for the September 2026 edition of the Insurance Simulation Lab, to keep the links, the files and the answers in one place while the course runs.</p>
-  <p><b>Coming soon:</b> a new course platform, <b>TALARIA</b>, where access, materials, teams and assessment will live together. Until then, this page does the job.</p>
+  <p><b>Coming soon: TALARIA.</b> The development team at Escola Europea is building a single course platform where access, materials, teams and assessment will live together. It is the same team behind PVL GAME and TT Circle, and this page is a step on the way there.</p>
 </section>
 
 <footer>
@@ -305,7 +323,7 @@ const CONFIG = {
   participantsCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4eIzQjWHyoPekluBOik-DCx_0NdW4LDqQF_bwfvM-6VD7oLhr28F3LKhg_6V-FhV_a23AXugDmWeB/pub?gid=0&single=true&output=csv",
   teamsCSV: "",
   // These "user game" values ignore the unlock time. For testing.
-  bypass: ["iclemente"],
+  bypass: ["testuser"],
   // Credentials stay hidden until this moment (Barcelona time)
   unlockAt: "2026-09-28T15:00:00+02:00",
   mail: {
