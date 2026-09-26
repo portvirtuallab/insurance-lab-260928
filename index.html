@@ -191,7 +191,7 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0;font-size
   <p class="msg" id="msg"></p>
   <div class="cardwrap" id="cardwrap"></div>
 
-  <p class="small" style="margin-top:18px">Your PVL GAME user is your team mailbox address, and the password shown is the default one &mdash; change it once you are in. Do not know your user name? It is in the email you received with your registration. Your email address also works.</p>
+  <p class="small" style="margin-top:18px">The passwords shown are the default ones. Change them once you are in. Do not know your user name? It is in the email you received with your registration. Your email address also works.</p>
 </section>
 
 <section id="week">
@@ -287,14 +287,25 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0;font-size
 
 <section id="contact">
   <div class="kicker">WHO TO ASK</div>
-  <h2>Course team</h2>
+  <h2>Course coordination</h2>
+  <p>Anything about the course &mdash; access, platforms, teams, materials, deadlines or assessment &mdash; comes to me. If I cannot solve it, I will find who can.</p>
 
-  <div class="subhead">COORDINATION</div>
-  <div class="people">
-    <div class="person" style="--c:#1B3A8C"><b>Eduard Rod&eacute;s</b><span>Director</span><a id="m-eduard" href="#">email</a></div>
-    <div class="person" style="--c:#00A0E1"><b>Marta Miquel</b><span>Deputy Director</span><a id="m-marta" href="#">email</a></div>
-    <div class="person" style="--c:#F9B233"><b>Orlando Reveco</b><span>Digital Product Manager</span><a id="m-orlando" href="#">email</a></div>
-    <div class="person" style="--c:#EE5B25"><b>Valeria Munar</b><span>Community Builder</span><a id="m-valeria" href="#">email</a></div>
+  <div class="people" style="margin-top:14px">
+    <div class="person" style="--c:#1B3A8C">
+      <b>Orlando Reveco</b>
+      <span>Digital Product Manager &middot; Course coordinator</span>
+      <a href="mailto:digital.developer@escolaeuropea.eu">digital.developer@escolaeuropea.eu</a>
+    </div>
+    <div class="person" style="--c:#EE5B25">
+      <b>Valeria Munar</b>
+      <span>Community Builder</span>
+      <a href="mailto:international@escolaeuropea.eu">international@escolaeuropea.eu</a>
+    </div>
+    <div class="person" style="--c:#00A0E1">
+      <b>Course mailbox</b>
+      <span>General enquiries</span>
+      <a href="mailto:coursemanager@playpcs.com">coursemanager@playpcs.com</a>
+    </div>
   </div>
 
   <div class="subhead">LECTURES</div>
@@ -303,7 +314,13 @@ footer{border-top:1px solid var(--line);margin-top:64px;padding:30px 0;font-size
     <div class="person" style="--c:#7A4FB0"><b>Alejandro Belinch&oacute;n Carreras</b><span>Lecturer</span><a href="https://www.linkedin.com/in/alejandro-belinchon/" target="_blank" rel="noopener">LinkedIn &#8599;</a></div>
   </div>
 
-  <p class="small" style="margin-top:20px">Escola Europea &ndash; Intermodal Transport &middot; Course mailbox <a href="mailto:coursemanager@playpcs.com">coursemanager@playpcs.com</a> &middot; <a href="tel:+34932986070">+34 93 298 6070</a></p>
+  <div class="subhead">AT THE ESCOLA</div>
+  <div class="people">
+    <div class="person" style="--c:#5B7290"><b>Eduard Rod&eacute;s</b><span>Director</span></div>
+    <div class="person" style="--c:#5B7290"><b>Marta Miquel</b><span>Deputy Director</span></div>
+  </div>
+
+  <p class="small" style="margin-top:18px">Escola Europea &ndash; Intermodal Transport &middot; Moll de Barcelona, Terminal Drassanes, 08039 Barcelona &middot; <a href="tel:+34932986070">+34 93 298 6070</a></p>
 </section>
 
 <section id="about" style="padding-top:44px">
@@ -339,12 +356,6 @@ const CONFIG = {
   bypass: ["vmunapaz"],
   // Credentials stay hidden until this moment (Barcelona time)
   unlockAt: "2026-09-28T15:00:00+02:00",
-  mail: {
-    eduard:  "eduard.rodes@portdebarcelona.cat",
-    marta:   "marta.miquel@escolaeuropea.eu",
-    orlando: "digital.developer@escolaeuropea.eu",
-    valeria: "international@escolaeuropea.eu"
-  }
 };
 /* ========================================================== */
 
@@ -381,10 +392,8 @@ var F = {
   user:  ["user game","usergame","user_game","user","usuario","username"],
   pass:  ["password","contrasena","contraseña","pass","clave"],
   code:  ["pvlcode","pvl code","code","codigo","código"],
-  euser: ["erp_user","erp user","user click","userclick","click user"],
-  epass: ["erp_password","erp password","password click","passwordclick","click password"],
-  tmail: ["team_mail","team mail","teammail","correo equipo"],
-  tpass: ["mail_password","mail password","team password","password mail"]
+  tmail: ["teammail","team mail","team_mail","correo equipo","team email"],
+  tpass: ["team password","teampassword","team_password","mail password","mail_password","password mail"]
 };
 
 var DATA = {people:[], teams:[]};
@@ -397,12 +406,19 @@ Promise.all([load(CONFIG.participantsCSV), load(CONFIG.teamsCSV)]).then(function
   DATA.people = res[0]; DATA.teams = res[1];
 }).catch(function(){});
 
-function row(label,value){ return value ? '<div class="row"><i>'+label+'</i><span>'+value+'</span></div>' : ""; }
+function row(label,value,always){
+  if(!value && !always) return "";
+  var v = value || '<span style="color:#EE5B25;font-family:inherit">ask the course team</span>';
+  return '<div class="row"><i>'+label+'</i><span>'+v+'</span></div>';
+}
 
 function show(person, team){
   var key = pick(person,F.team).toLowerCase().replace(" team","").trim();
   var dot = COLOURS[key] || "#1B3A8C";
   var t = team || {};
+  // the mailbox may sit in the participants sheet or in the teams sheet
+  var mbox = pick(person,F.tmail) || pick(t,F.tmail);
+  var mpass = pick(person,F.tpass) || pick(t,F.tpass);
   var html =
     '<div class="cred" id="credcard" style="--dot:'+dot+'">'+
       '<div class="top"><div class="t">INSURANCE SIMULATION LAB &middot; 260928PVL</div>'+
@@ -410,17 +426,13 @@ function show(person, team){
         '<div class="tm">'+pick(person,F.team)+'</div></div>'+
       '<div class="grp"><h4>PVL GAME</h4>'+
         row("user", pick(person,F.user))+
-        row("password", pick(person,F.pass))+
+        row("password", pick(person,F.pass), true)+
         row("pvl code", pick(person,F.code))+
       '</div>'+
-      (pick(t,F.tmail) ? '<div class="grp"><h4>Team mailbox &mdash; also your PVL GAME user</h4>'+
-        row("address", pick(t,F.tmail))+
-        row("password", pick(t,F.tpass))+
-        '<a class="dl" style="margin-top:9px" href="https://srv2.playforwarding.com/login_up.php" target="_blank" rel="noopener">Open the webmail &#8599;</a>'+
-      '</div>' : "")+
-      (pick(t,F.euser) ? '<div class="grp"><h4>ERP access</h4>'+
-        row("user", pick(t,F.euser))+
-        row("password", pick(t,F.epass))+
+      (mbox ? '<div class="grp"><h4>Team mailbox</h4>'+
+        row("address", mbox)+
+        row("password", mpass)+
+        '<a class="dl" style="margin-top:10px" href="https://srv2.playforwarding.com/login_up.php" target="_blank" rel="noopener">Open the webmail &#8599;</a>'+
       '</div>' : "")+
       '<div class="act"><button id="dl">Download</button><button id="cp">Copy all</button></div>'+
     '</div>';
@@ -438,10 +450,10 @@ function downloadCard(person, t, dot){
   L.push(["PVL GAME user", pick(person,F.user)]);
   L.push(["PVL GAME password", pick(person,F.pass)]);
   if(pick(person,F.code)) L.push(["PVL code", pick(person,F.code)]);
-  if(pick(t,F.tmail)) L.push(["Team mailbox", pick(t,F.tmail)]);
-  if(pick(t,F.tpass)) L.push(["Mailbox password", pick(t,F.tpass)]);
-  if(pick(t,F.euser)) L.push(["ERP user", pick(t,F.euser)]);
-  if(pick(t,F.epass)) L.push(["ERP password", pick(t,F.epass)]);
+  var mb = pick(person,F.tmail) || pick(t,F.tmail);
+  var mp = pick(person,F.tpass) || pick(t,F.tpass);
+  if(mb) L.push(["Team mailbox", mb]);
+  if(mp) L.push(["Mailbox password", mp]);
 
   var H = 250 + L.length*46;
   var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="'+H+'" viewBox="0 0 900 '+H+'">'+
@@ -498,10 +510,6 @@ document.getElementById("lookupBtn").onclick = function(){
 document.getElementById("pvlcode").addEventListener("keydown",function(e){
   if(e.key==="Enter") document.getElementById("lookupBtn").click();
 });
-
-function wireMail(id,addr){var el=document.getElementById(id);if(!el)return;
-  if(addr){el.href="mailto:"+addr;}else{el.style.opacity=".5";el.removeAttribute("href");}}
-Object.keys(CONFIG.mail).forEach(function(k){ wireMail("m-"+k, CONFIG.mail[k]); });
 
 var btn=document.getElementById('themebtn');
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);
